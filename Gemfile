@@ -66,7 +66,7 @@ group :test do
   gem "selenium-webdriver"
 end
 gem 'pg'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 5.3.8'
 gem 'jquery-rails'
 gem 'font-awesome-rails'
 gem 'devise'
