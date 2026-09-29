@@ -1,0 +1,73 @@
+<div class="container my-4" style="max-width: 935px;">
+  <!-- Profile Header -->
+  <header class="row mb-5 align-items-center">
+    <!-- Avatar -->
+    <div class="wrapper">
+      <% if @user&.avatar&.attached? %>
+        <%= image_tag @user.avatar %>
+      <%end %>
+    </div>
+
+    <!-- User Info & Actions -->
+    <div class="col-8">
+      <div class="d-flex align-items-center gap-3 mb-3">
+        <h2 class="h4 mb-0 fw-normal"><%= @user.username.presence || @user.email.split('@').first %></h2>
+        <a href="<%= edit_user_path(@user) %>" class="btn btn-sm px-3 fw-semibold" style="border: 1px solid #dbdbdb; color: #262626; background: #fff; font-size: 13px;">
+          Edit Profile
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <ul class="list-inline d-flex gap-4 mb-3" style="font-size: 15px;">
+        <li class="list-inline-item"><span class="fw-bold"><%= @posts.count %></span> posts</li>
+        <li class="list-inline-item"><span class="fw-bold">195</span> followers</li>
+        <li class="list-inline-item"><span class="fw-bold">345</span> following</li>
+      </ul>
+
+      <!-- Bio Details -->
+      <div>
+        <h6 class="fw-bold mb-1" style="font-size: 14px;"><%= @user.name.presence || "Instagram User" %></h6>
+        <p class="mb-1 text-muted" style="font-size: 14px;"><%= @user.bio.presence || "Hey there! I am using Instagram clone." %></p>
+        <% if @user.website.present? %>
+          <a href="<%= @user.website %>" target="_blank" class="text-decoration-none fw-semibold" style="color: #00376b; font-size: 14px;">
+            <%= @user.website %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabs Navigation -->
+  <ul class="nav nav-tabs justify-content-center border-top mb-4" style="border-bottom: none; font-size: 12px; letter-spacing: 1px;">
+    <li class="nav-item">
+      <a class="nav-link active text-dark fw-bold border-top border-dark border-0 rounded-0 py-3 px-4" href="#">
+        <i class="fa-solid fa-table-cells me-1"></i> POSTS
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-muted border-0 py-3 px-4" href="#">
+        <i class="fa-regular fa-circle-play me-1"></i> IGTV
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-muted border-0 py-3 px-4" href="#">
+        <i class="fa-regular fa-bookmark me-1"></i> SAVED
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-muted border-0 py-3 px-4" href="#">
+        <i class="fa-regular fa-id-badge me-1"></i> TAGGED
+      </a>
+    </li>
+  </ul>
+
+  <!-- 3-Column Post Grid -->
+  <div class="user-images">
+    <% @posts.each do |post|%>
+      <div class="wrapper">
+         <%=link_to post_path(post) do %>
+        <%=image_tag post.image.present? ? post.image : '' %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="form-upload">
+  <h6 class="fw-bold mb-3">Create a New Post</h6>
+  <%= form_with model: Post.new, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Write a caption..." %>
+    </div>
+    <div class="mb-3">
+      <%= f.file_field :image, class: "form-control form-control-sm" %>
+    </div>
+    <%= f.hidden_field :user_id, value: current_user&.id || User.first&.id %>
+    
+    <div class="text-end">
+      <%= f.submit "Create Post", class: "btn btn-primary btn-sm px-3", style: "background-color: #0095f6; border: none;" %>
+    </div>
+  <% end %>
+</div>
+<!-- Feed Posts Display -->
+<div class="mx-auto" style="max-width: 500px;">
+  <% @posts.each do |post| %>
+    <div class="card mb-4 bg-white border" style="border-color: #dbdbdb !important; border-radius: 3px;">
+      
+      <!-- Post Header -->
+      <div class="p-3 d-flex align-items-center gap-2">
+       <!-- Avatar with Profile Link -->
+        <%= link_to user_path(post.user), class: "text-decoration-none" do %>
+          <div style="width: 32px; height: 32px; border-radius: 50%; overflow: hidden;">
+            <% if post.user.avatar.attached? %>
+              <%= image_tag post.user.avatar, style: "width: 100%; height: 100%; object-fit: cover;" %>
+            <% else %>
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face" alt="avatar" style="width: 100%; height: 100%; object-fit: cover;">
+            <% end %>
+          </div>
+        <% end %>
+
+        <!-- Username with Profile Link -->
+        <%= link_to user_path(post.user), class: "text-decoration-none text-dark fw-semibold small" do %>
+          <%= post.user&.username.presence || post.user&.email&.split('@')&.first || "user" %>
+        <% end %>
+      </div>
+
+      <!-- Post Image -->
+      <% if post.image.attached? %>
+        <%= image_tag post.image, class: "w-100", style: "object-fit: cover; max-height: 550px;" %>
+        <div class="p-3">
+          <strong><%= post.user.username%></strong><%= post.description%>
+          </div>
+        </div>
+      <% end %>
+      <div class="d-flex justify-content-center my-4">
+      <%= paginate @posts%>
+      </div>
+      </div>
+
+      <!-- Caption -->
+      <div class="p-3">
+        <% if post.description.present? %>
+          <p class="mb-1 small">
+            <span class="fw-semibold"><%= post.user&.username.presence || post.user&.email&.split('@')&.first || "user" %></span>
+            <%= post.description %>
+          </p>
+        <% end %>
+        <span class="text-muted" style="font-size: 11px;"><%= time_ago_in_words(post.created_at) %> ago</span>
+      </div>
+
+    </div>
+  <% end %>
+</div>
+

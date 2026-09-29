@@ -1,0 +1,100 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ *= require posts
+ *= require users
+ */
+ @import "bootstrap";
+ @import "font-awesome";
+ 
+ .container{
+  max-width: 1000px;
+}
+.navbar{
+  border-bottom: 1px solid rgba(0,0,0,.0975);
+}
+.user-section{
+  a{
+    padding-left: 15px;
+  }
+  i.fa{
+    font-size: 22px;
+    color: #000000d4;
+  }
+}
+.search-form{
+  input{
+    font-size: 13px;
+    text-align: center;
+  }
+}
+.footer{
+  font-size: 12px;
+  padding-top: 30px;
+  ul{
+    padding-left: 0;
+    > li{
+      display: inline;
+      padding-right: 15px;
+      color: #003569;
+    }
+  }
+  p{
+    color: #999;
+  }
+}
+.form-upload {
+  border: 1px solid #dbdbdb;
+  height: auto;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 3px;
+  background-color: #fff;
+  max-width: 500px;
+}
+
+.form-upload input[type='text'] {
+  width: 100%;
+}
+
+.posts{
+  margin: 50px 180px 10px;
+  .post{
+    border: 1px solid #efefef;
+    margin: 60px 0;
+    border-radius: 3px;
+    .user{
+      border-bottom: 1px solid #efefef;
+      display: flex;
+      .avatar{
+        width: 30px;
+        margin: 8px;
+        img{
+          width: 100%;
+          border: 1px solid #efefef;
+          border-radius: 50%;
+        }
+      }
+      .username{
+        padding-top: 13px;
+        color: #262626;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    .main-image{
+      width: 100%;
+      border-bottom: 1px solid #f4f4f4;
+    }
+    .description{
+      padding: 20px;
+    }
+  }
+}
+
